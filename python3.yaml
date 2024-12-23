@@ -1,74 +1,77 @@
 filetype: python
 
-detect:
-    filename: "\\.py(3|w)?$"
-    header: "^#!.*/(env +)?python(3)?$"
+            detect:
+                filename: "\\.py(3|w)?$"
+                header: "^#!.*/(env +)?python(3)?$"
 
-rules:
-    # built-in objects
-    - constant: "\\b(Ellipsis|None|self|cls|True|False)\\b"
-    - constant.bool: "\\b(True|False)\\b"  # New one
-      # built-in attributes
-    - constant: "\\b(__bases__|__builtin__|__class__|__debug__|__dict__|__doc__|__file__|__members__|__methods__|__name__|__self__)\\b"
-      # built-in functions
-    - identifier: "\\b(abs|all|any|ascii|bin|bool|breakpoint|bytearray|bytes|callable|chr|classmethod|compile|complex|delattr|dir|divmod|eval|exec|format|getattr|globals|hasattr|hash|help|hex|id|input|isinstance|issubclass|iter|len|locals|max|min|next|nonlocal|oct|open|ord|pow|print|repr|round|setattr|sorted|sum|vars|__import__)\\b"
-    - identifier: "\\b(classmethod|enumerate|filter|map|object|property|reversed|slice|staticmethod|super|type|zip)\\b" # Previously "type"
-      # Functions called with dot operand
-    - identifier: "\\.[a-z]+"  # New one
-      # special method names
-    - identifier: "\\b__(abs|add|and|call|cmp|coerce|complex|concat|contains|delattr|delitem|delslice|del|dict|divmod|div|float|getattr|getitem|getslice|hash|hex|iadd|iand|iconcat|ifloordiv|ilshift|imatmul|imod|imul|init|int|invert|inv|ior|ipow|irshift|isub|iter|itruediv|ixor|len|long|lshift|mod|mul|neg|next|nonzero|oct|or|pos|pow|radd|rand|rcmp|rdivmod|rdiv|repeat|repr|rlshift|rmod|rmul|ror|rpow|rrshift|rshift|rsub|rxor|setattr|setitem|setslice|str|sub|xor)__\\b"
-      # Simple type
-#    - type: ": [a-zA-Z]+ ={1} [a-zA-A_0-9]"
-      # From `typing` module and other modules
-    - type: ": [a-zA-Z]+(\\[[a-zA-Z]+(, [a-zA-Z]+)?\\])?"  # New one
-      # Types in basic library (no modules imported)
-    - type.keyword: "\\b(str|int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytearray|memoryview|NoneType)\\b" # New one
-      # definitions
-    - identifier: "def [a-zA-Z_0-9]+"                                             #   dict[int, str] list[int]
-      # variable declaration with or without typing
-    - identifier.var: "([a-zA-Z_0-9]+ ={1}|[a-zA-Z_0-9]+:)" # FIXME: variable with type declaration converts also the typing part... New one  [a-zA-Z_0-9]+(\\: [a-zA-Z]+(\\[[a-zA-Z]+(, [a-zA-Z]+)?\\])?)? ={1}
-      # Variables next to operands
-    - identifier.var: "[a-zA-Z_0-9]+ (<|>|<=|>=|!=|==) [a-zA-Z_0-9]+" # New one
-      # keywords
-    - statement: "\\b(and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|raise|return|try|while|with|yield)\\b"
-      # decorators
-    - preproc: "^\\s*@[^(]*"
-      # operators
-    - symbol.operator: "([~^.:;,+*|=!\\%@]|<|>|/|-|&)"
-      # parentheses
-    - symbol.brackets: "([(){}]|\\[|\\])"
-      # numbers
-    - constant.number: "\\b[0-9](_?[0-9])*(\\.([0-9](_?[0-9])*)?)?(e[0-9](_?[0-9])*)?\\b" # decimal
-    - constant.number: "\\b0b(_?[01])+\\b"     # bin
-    - constant.number: "\\b0o(_?[0-7])+\\b"    # oct
-    - constant.number: "\\b0x(_?[0-9a-fA-F])+\\b" # hex
+            rules:
+                # built-in objects
+                - constant: "\\b(Ellipsis|None|self|cls|True|False)\\b"
+                - constant.bool: "\\b(True|False)\\b"  # New one
+                  # built-in attributes
+                - constant: "\\b(__bases__|__builtin__|__class__|__debug__|__dict__|__doc__|__file__|__members__|__methods__|__name__|__self__)\\b"
+                  # built-in functions
+                - identifier: "\\b(abs|all|any|ascii|bin|bool|breakpoint|bytearray|bytes|callable|chr|classmethod|compile|complex|delattr|dir|divmod|eval|exec|format|getattr|globals|hasattr|hash|help|hex|id|input|isinstance|issubclass|iter|len|locals|max|min|next|nonlocal|oct|open|ord|pow|print|repr|round|setattr|sorted|sum|vars|__import__)\\b"
+                - identifier: "\\b(classmethod|enumerate|filter|map|object|property|reversed|slice|staticmethod|super|type|zip)\\b" # Previously "type"
+                  # special method names
+                - identifier: "\\b__(abs|add|and|call|cmp|coerce|complex|concat|contains|delattr|delitem|delslice|del|dict|divmod|div|float|getattr|getitem|getslice|hash|hex|iadd|iand|iconcat|ifloordiv|ilshift|imatmul|imod|imul|init|int|invert|inv|ior|ipow|irshift|isub|iter|itruediv|ixor|len|long|lshift|mod|mul|neg|next|nonzero|oct|or|pos|pow|radd|rand|rcmp|rdivmod|rdiv|repeat|repr|rlshift|rmod|rmul|ror|rpow|rrshift|rshift|rsub|rxor|setattr|setitem|setslice|str|sub|xor)__\\b"
+                  # Custom function call
+                - identifier: "[a-zA-Z_0-9]+\\("  # New one
+                  # Functions called with dot operand
+                - identifier: "\\.[a-z]+"  # New one
+                  # From `typing` module and other modules # New one
+                - type: "(:|->) [^(None)][a-zA-Z]+(\\[[a-zA-Z]+(, [a-zA-Z]+)?\\])? ?:?"  # New one
+                  # Types in basic library (no modules imported)
+                - type.keyword: "\\b(str|int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytearray|memoryview|NoneType)\\b" # New one
+                  # definitions
+                - identifier: "def [a-zA-Z_0-9]+"
+                  # Variables followed by : (for typing) or dot (operand to call a function i.e. dict.items()).
+                - identifier.var: "[a-zA-Z0-9_]+((\\.|\\s)\\b|: )" # New one
+                  # Evaluate variables after conditional and loop statement (while|for|if|and|or|in)\s[^(True|False)][a-zA-Z_0-9]+(\s|,\s[a-zA-Z_0-9]+)?
+                - identifier.var: "(while|for|if|and|or|in) [^(True|False)][a-zA-Z_0-9]+(\\s|, [a-zA-Z_0-9]+)?" # New one
+                  # Imported module in any format statement. Only works with two imports
+                - identifier.class: "(import|from|as) [a-zA-Z0-9_]+((, [a-zA-Z0-9_]+)+)?"
+                  # TODO: Variables followed or preceded by comparative operands
+                  # keywords
+                - statement: "\\b(and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|raise|return|try|while|with|yield)\\b"
+                  # decorators
+                - preproc: "^\\s*@[^(]*"
+                  # operators
+                - symbol.operator: "([~^.:;,+*|=!\\%@]|<|>|/|-|&)"
+                  # parentheses
+                - symbol.brackets: "([(){}]|\\[|\\])"
+                  # numbers
+                - constant.number: "\\b[0-9](_?[0-9])*(\\.([0-9](_?[0-9])*)?)?(e[0-9](_?[0-9])*)?\\b" # decimal
+                - constant.number: "\\b0b(_?[01])+\\b"     # bin
+                - constant.number: "\\b0o(_?[0-7])+\\b"    # oct
+                - constant.number: "\\b0x(_?[0-9a-fA-F])+\\b" # hex
 
-    - constant.string:
-        start: "\"\"\""
-        end: "\"\"\""
-        rules: []
+                - constant.string:
+                    start: "\"\"\""
+                    end: "\"\"\""
+                    rules: []
 
-    - constant.string:
-        start: "'''"
-        end: "'''"
-        rules: []
+                - constant.string:
+                    start: "'''"
+                    end: "'''"
+                    rules: []
 
-    - constant.string:
-        start: "\""
-        end: "(\"|$)"
-        skip: "\\\\."
-        rules:
-            - constant.specialChar: "\\\\."
+                - constant.string:
+                    start: "\""
+                    end: "(\"|$)"
+                    skip: "\\\\."
+                    rules:
+                        - constant.specialChar: "\\\\."
 
-    - constant.string:
-        start: "'"
-        end: "('|$)"
-        skip: "\\\\."
-        rules:
-            - constant.specialChar: "\\\\."
+                - constant.string:
+                    start: "'"
+                    end: "('|$)"
+                    skip: "\\\\."
+                    rules:
+                        - constant.specialChar: "\\\\."
 
-    - comment:
-        start: "#"
-        end: "$"
-        rules:  # AKA Code tags (PEP 350)
-            - todo: "(TODO|FIXME|HACK|BUG|NOTE|FAQ|MNEMONIC|REQ|RFE|IDEA|PORT|\\?\\?\\?|!!!|GLOSS|SEE|TODOC|STAT|RVD|CRED):?"
+                - comment:
+                    start: "#"
+                    end: "$"
+                    rules:  # AKA Code tags (PEP 350)
+                        - todo: "(TODO|FIXME|HACK|BUG|NOTE|FAQ|MNEMONIC|REQ|RFE|IDEA|PORT|\\?\\?\\?|!!!|GLOSS|SEE|TODOC|STAT|RVD|CRED):?"
