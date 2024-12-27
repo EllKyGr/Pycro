@@ -19,25 +19,28 @@ rules:
     - identifier: "[a-zA-Z_0-9]+\\("  # New one
       # Functions called with dot operand
     - identifier: "\\.[a-z]+"  # New one
-      # From `typing` module and other modules # New one
-    - type: "(:|->) [^(None)][a-zA-Z]+(\\[[a-zA-Z]+(, [a-zA-Z]+)?\\])? ?:?"  # New one
-      # Types in basic library (no modules imported)
-    - type.keyword: "\\b(str|int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytearray|memoryview|NoneType)\\b" # New one
       # definitions
-    - identifier: "def [a-zA-Z_0-9]+"
-      # TODO variable followed by '=' and whatever it is being assigned to. So far any intent to do so overrules some typing cases like foo: var = loom where var changes color instead of keeping type one
-      # Variables followed by : (for typing) or dot (operand to call a function i.e. dict.items()).
+    - identifier: "def [a-zA-Z_\\d]+"
+      # Basic variable assign
+    - identifier.var: "^[a-zA-Z0-9_]+\\s=" # New one
+      # Variables followed by ':' (for typing), '.' operand (call a function i.e. dict.items()) and as placeholders within for loops
     - identifier.var: "[a-zA-Z0-9_]+((\\.|\\s)\\b|: )" # New one
-      # Evaluate variables after conditional and loop statement
-    - identifier.var: "(while|for|if|and|or|in) [^(True|False)][a-zA-Z_0-9]+(\\s|, [a-zA-Z_0-9]+)?" # New one
+      # Evaluate variables after conditional and loop statement FIXME: var name starting with a, s, l, u, r, e, ñ won't highlight unless there are do spaces before it, NOTE: one letter isn't highlighted, from two onwards. Somehow it overlaps with the same effect as placing an additional space
+    - identifier.var: "(while|for|if|and|or|in)\\s[^(True|False)][a-zA-Z_0-9]+" # New one
       # Variables followed or preceded by comparative operands.
-    - identifier.var: "[a-zA-Z0-9_]+\\s(<|>|<=|>=|!=|==)\\s([a-zA-Z0-9_]+)?:?" # ([a-zA-Z0-9_]+)?
-      # Imported module in any format statement. Only works with two imports
+    - identifier.var: "[a-zA-Z0-9_]+\\s(<|>|<=|>=|!=|==)\\s([a-zA-Z0-9_]+)?:?$" # New one
+      # Variables inside any type of brackets FIXME: mixing variables in DT with anything but integers, won't work. For float [\\d_]+(\\.[\\d_]*)?
+    - identifier.var: "(\\(|\\[|{)[a-zA-Z0-9_]+((,|:)\\s[a-zA-Z0-9_]+){0,},?(\\)|\\]|}):?$" # New one
+      # Imported module in any format statement.Only works with two imports
     - identifier.class: "(import|from|as|class) [a-zA-Z0-9_]+((, [a-zA-Z0-9_]+)+)?"
-      # keywords
+      # keywords1
     - statement: "\\b(and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|raise|return|try|while|with|yield)\\b"
       # decorators
     - preproc: "^\\s*@[^(]*"
+    # From `typing` module and other modules # New one Change to this location to take precedence
+    - type: "(:|->) [^(None)][a-zA-Z]+(\\[[a-zA-Z]+(, [a-zA-Z]+)?\\])? ?:?"  # New one
+    # Types in basic library (no modules imported)
+    - type.keyword: "\\b(str|int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytearray|memoryview|NoneType)\\b" # New one
       # operators
     - symbol.operator: "([~^.:;,+*|=!\\%@]|<|>|/|-|&)"
       # parentheses
@@ -74,6 +77,9 @@ rules:
 
       # FIXME: Missing unique symbols. Currently not working
     - constant.string.url: "(http(s)?:\\/\\/w{3}\\.)?[a-zA-Z_0-9]+(\\.[a-z]{,3})+((\\/[a-zA-Z_0-9]+){1,})?" # New one
+        # start: "\"|''"
+        # end: "(\"|'|$)"
+        # skip: "\\\\."
 
     - comment:
         start: "#"
