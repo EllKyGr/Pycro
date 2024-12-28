@@ -17,27 +17,31 @@ rules:
     - identifier: "\\b__(abs|add|and|call|cmp|coerce|complex|concat|contains|delattr|delitem|delslice|del|dict|divmod|div|float|getattr|getitem|getslice|hash|hex|iadd|iand|iconcat|ifloordiv|ilshift|imatmul|imod|imul|init|int|invert|inv|ior|ipow|irshift|isub|iter|itruediv|ixor|len|long|lshift|mod|mul|neg|next|nonzero|oct|or|pos|pow|radd|rand|rcmp|rdivmod|rdiv|repeat|repr|rlshift|rmod|rmul|ror|rpow|rrshift|rshift|rsub|rxor|setattr|setitem|setslice|str|sub|xor)__\\b"
       # Custom function call
     - identifier: "[a-zA-Z_0-9]+\\("  # New one
-      # Functions called with dot operand
-    - identifier: "\\.[a-z]+"  # New one
+      # Functions called with dot operand. TODO: Move this below line 35
+    - identifier: "\\.[a-z]+\\("  # New one
       # definitions
     - identifier: "def [a-zA-Z_\\d]+"
       # Basic variable assign
-    - identifier.var: "^[a-zA-Z0-9_]+\\s=" # New one
-      # Variables followed by ':' (for typing), '.' operand (call a function i.e. dict.items()) and as placeholders within for loops
+    - identifier.var: "(^|\\s+|\\()[a-zA-Z0-9_]+(\\s|,)?=" # New one
+      # Variables followed by ':' (for typing), '.' operand (call a function i.e. dict.items()) and as placeholders inside 'for' loop
     - identifier.var: "[a-zA-Z0-9_]+((\\.|\\s)\\b|: )" # New one
-      # Evaluate variables after conditional and loop statement FIXME: var name starting with a, s, l, u, r, e, ñ won't highlight unless there are do spaces before it, NOTE: one letter isn't highlighted, from two onwards. Somehow it overlaps with the same effect as placing an additional space
-    - identifier.var: "(while|for|if|and|or|in)\\s[^(True|False)][a-zA-Z_0-9]+" # New one
+      # Variables stated after specific keywords FIXME: var name starting with a, s, l, u, r, e, ñ won't highlight unless there are two spaces before it, NOTE: one letter isn't highlighted, from two onwards. Somehow it overlaps with the same effect as placing an additional space
+    - identifier.var: "(return|while|for|if|and|or|in)\\s[^(True|False|None)][a-zA-Z_0-9]+\\s?" # New one
       # Variables followed or preceded by comparative operands.
     - identifier.var: "[a-zA-Z0-9_]+\\s(<|>|<=|>=|!=|==)\\s([a-zA-Z0-9_]+)?:?$" # New one
-      # Variables inside any type of brackets FIXME: mixing variables in DT with anything but integers, won't work. For float [\\d_]+(\\.[\\d_]*)?
-    - identifier.var: "(\\(|\\[|{)[a-zA-Z0-9_]+((,|:)\\s[a-zA-Z0-9_]+){0,},?(\\)|\\]|}):?$" # New one
-      # Imported module in any format statement.Only works with two imports
+      # Variables inside any type of brackets FIXME: mixing variables in DT with anything but integers or float, won't work. For string \"{1,3}.*\"{1,3}
+    - identifier.var: "(\\(|\\[|{)([a-zA-Z0-9_]+|[\\d_]+(\\.[\\d_])*)((,|:)\\s([a-zA-Z0-9_]+|[\\d_]+(\\.[\\d_])*)?){0,},?(\\)|\\]|})\\s?(:|=)?" # New one
+      # Variables, numbers, strings, attributes inside parenthesis. FIXME: Still don't work if quotes are used in any position # Alt \((\".+\"|[\w_]+(=[\w_]+)?),?\s\)
+    # - identifier.var: "\\((\".+\"|[\\w]+|[\\d_]+(\\.[\\d_])*)(,\\s?([\\w]+(=[\\w]+)?|\".+\"|[\\d_]+(\\.[\\d_])*))*\\)$" # New one
+      # Iterator slicing and key assignment
+    - identifier.var: "\\b[a-zA-Z0-9_]+(\\[[a-zA-Z_:.\\d]+\\])" # New one TODO: add this to the matching character set: \\(\\)
+      # Imported module in any format statement
     - identifier.class: "(import|from|as|class) [a-zA-Z0-9_]+((, [a-zA-Z0-9_]+)+)?"
-      # keywords1
+      # keywords
     - statement: "\\b(and|as|assert|async|await|break|case|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|match|nonlocal|not|or|pass|raise|return|try|while|with|yield)\\b"
       # decorators
     - preproc: "^\\s*@[^(]*"
-    # From `typing` module and other modules # New one Change to this location to take precedence
+    # From `typing` module and other modules # New one Changed to this location to take precedence
     - type: "(:|->) [^(None)][a-zA-Z]+(\\[[a-zA-Z]+(, [a-zA-Z]+)?\\])? ?:?"  # New one
     # Types in basic library (no modules imported)
     - type.keyword: "\\b(str|int|float|complex|list|tuple|range|dict|set|frozenset|bool|bytes|bytearray|memoryview|NoneType)\\b" # New one
@@ -67,6 +71,7 @@ rules:
         skip: "\\\\."
         rules:
             - constant.specialChar: "\\\\."
+            - constant.specialChar: "\\{[\\w\\d/*-+.\\s\\(\\)]*?\\}" # New one
 
     - constant.string:
         start: "'"
@@ -74,12 +79,14 @@ rules:
         skip: "\\\\."
         rules:
             - constant.specialChar: "\\\\."
+            - constant.specialChar: "\\{[\\w\\d/*-+.\\s\\(\\)]*?\\}" # New one
 
       # FIXME: Missing unique symbols. Currently not working
     - constant.string.url: "(http(s)?:\\/\\/w{3}\\.)?[a-zA-Z_0-9]+(\\.[a-z]{,3})+((\\/[a-zA-Z_0-9]+){1,})?" # New one
-        # start: "\"|''"
+        # start: "\"|'"
         # end: "(\"|'|$)"
         # skip: "\\\\."
+        # rules: []
 
     - comment:
         start: "#"
