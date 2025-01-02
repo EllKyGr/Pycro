@@ -35,7 +35,7 @@ rules:
       # Custom function call
     - identifier: "[\\w]+\\("  # New one
       # Functions called with dot operand
-    - identifier: "\\.[a-z]+\\("  # New one
+    - identifier: "\\.[a-z]+\\(?"  # New one
       # Import, class and error statements
     - identifier.class: "(import|from|as|class|except)\\s[\\w]+((,\\s[\\w]+)+|:)?" # New one
       # keywords
@@ -87,7 +87,7 @@ rules:
             # # f-string format
             - constant.specialChar: "\\{[\\w\\d/*-+.\\s\\(\\)]*?\\}" # New one
 
-      # NOTE: Missing unique symbols %&#... Currently not working
+      # NOTE: Requires unique symbols %&#... Currently not working presumably missing specific rules
     - constant.string.url: "(http(s)?:\\/\\/w{3}\\.)?[\\w]+(\\.[a-z]{,3})+((\\/[\\w]+){1,})?" # New one
 
     - comment:
