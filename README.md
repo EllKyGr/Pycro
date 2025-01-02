@@ -34,7 +34,7 @@ cases for fast checking or test.
 1. Installing Micro:
 	Micro 2.0.XX => https://github.com/benweissmann/getmic.ro
 2. Plugins `micro -plugin install <plugin>`:
-	- `aspell`: spell checking. <ins>addpersonal</ins> adds word to personal dict when cursor is placed under said word.
+	- `aspell`: spell checking. `addpersonal` adds word to personal dict when cursor is placed under said word.
 
 	- `filemanager`: adds a tree to visualize, open, create files and directories:
 	    - `ctrl + e` then "tree:" open the file tree
@@ -53,13 +53,12 @@ cases for fast checking or test.
 			         possible keywords are listed
 
 	- `autofmt`: formats file content at save based on language. Until the new
-	               [autofmt](https://github.com/a11ce/micro-autofmt) repo is updated with a
-	               '-plugin' command do this instead:
+	   [autofmt](https://github.com/a11ce/micro-autofmt) repo is updated with a `-plugin` command do this instead:
 		1. `git clone git@github.com:a11ce/micro-autofmt.git`
 		2. `cd` to micro-autofmt/ then `make`
 		3. Currently only C/C++/C#, Python, Racket, JavaScript, Rust and Go are supported.
 			   Every language require its specific formatter
-		4. For Python run: `pip install` <ins>git+https://github.com/google/yapf.git</ins>
+		4. For Python run: `pip install` git+https://github.com/google/yapf.git
 			   either directly or within environment
 
 	- `quoter`: wraps the lines with double or single quotes
