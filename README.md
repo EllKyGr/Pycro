@@ -63,7 +63,7 @@ repository if the language is already supported and modify it as desired.
 		3. Currently only C/C++/C#, Python, Racket, JavaScript, Rust and Go are supported.
 			   Every language require its specific formatter
 		4. For Python run: `pip install` git+https://github.com/google/yapf.git
-			   either directly or within environment. 
+			   either directly or within environment.
 	- [`runit`](https://github.com/terokarvinen/micro-run): allows to run, compile and make files on the go.
 		- `F5`: saves and run
 		- `F12`: makes
@@ -74,10 +74,10 @@ repository if the language is already supported and modify it as desired.
 		- `curly` wraps selected text within {}
 		- `camel` turns text into camelCase format  
 
+
       __NOTE:__ Refer to the main page of the repository, or the *manipulator.md* after installed, to learn all the available commands. The plugin installs version __1.4.0__, version __1.4.1__ is needed for `camel, snake, kebab`, etc to work otherwise Micro won't recognize them.
 	- [`quoter`](https://github.com/sparques/micro-quoter): wraps the lines with double or single quotes.
 	- [`cheat`](https://github.com/terokarvinen/micro-cheat): pressing `F1` opens a new tab with a cheatsheet of concepts from the current working language. Although mostly basic concepts of the language, the file can be modify and expand upon as needed.  
-
  	 __NOTE:__ the path stated in *main.lua* at line 11 __=>__ *local cheatdir = config.ConfigDir.."/plug/micro-cheat/cheatsheets/"*
 	           conflicts with the actual path installed for the plugin, instead of __micro-cheat__ change it to __cheat__
 
