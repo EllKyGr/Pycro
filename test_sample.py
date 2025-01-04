@@ -1,6 +1,7 @@
 """This is a sample code to test regex statements from python3.yaml syntax file
    for Micro text editor, and customize colorschemes suited for the user.
    Currently using an extended version or darcula.micro renamed pyrcula.micro"""
+
 import time
 from sys import exit as ex
 from typing import Any
