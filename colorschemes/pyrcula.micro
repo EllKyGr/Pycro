@@ -31,6 +31,7 @@ color-link tabbar "#242424,#CCCCCC"
 color-link indent-char "#4F4F4F,#242424"
 color-link line-number "#977000,#2C2C2C"
 color-link current-line-number "#FFC66D,#242424"
+# 36, 37, 38 affected if "diffgutter" is set to true in "settings.json"
 color-link diff-added "#00AF00"
 color-link diff-modified "#FFAF00"
 color-link diff-deleted "#D70000"
@@ -38,6 +39,8 @@ color-link gutter-error "#D33682,#242424"         # >> language error
 color-link gutter-warning "#36D387,#242424"       # >> i.e. spell checking
 color-link cursor-line "#2C2C2C"
 color-link color-column "#2C2C2C"
+color-link divider "#777777"                      # New
+color-link selection "#2C2C2C,#777777"            # New
 
 # No extended types; Plain brackets.
 color-link type.extended "default"
