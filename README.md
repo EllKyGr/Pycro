@@ -51,10 +51,9 @@ repository if the language is already supported and modify it as desired.
 	- [`lsp`](https://github.com/AndCake/micro-plugin-lsp): adds language server for better coding style and formatting
 		- Run `pip install python-lsp-server` for the lsp plugin to work
 		- `Alt + d`: with cursor under a function returns the documentation
-		- `Alt + k`: with cursor under function, object, etc returns brief
-		- `Ctrl + _`: comments out the line. Undo the action with the same
-		- `Ctrl + space`: kind of auto complete but with issues, however all
-			         possible keywords are listed
+		- `Alt + k`: with cursor under function, object, etc returns brief description at status line
+		- `Ctrl + _`: comments out the line. Repeat to undo previous action
+		- `Ctrl + space`: limited auto complete; all possible keywords are listed yet not cleanly stated
 
 	- `autofmt`: formats file content at save based on language. Until the new
 	   [autofmt](https://github.com/a11ce/micro-autofmt) repo is updated with a `-plugin` command, do this instead:
@@ -86,17 +85,20 @@ repository if the language is already supported and modify it as desired.
 	after installing plugins edit, or create, the `settings.json` at `~/.config/micro`
 	with the following options:
     ```
+    # settings.json
 	{
 	    "aspell.check": "on",
-	    "aspell.lang": "en",
-	    "colorcolumn": 80,
+	    "aspell.lang": "en",       # Native or any language
+	    "colorcolumn": 80,         # Rule
 	    "colorscheme": "pyrcula",  # Or any color scheme fitting the python syntax file
-	    "fmt-onsave": true,
-	    "hlsearch": true,
-	    "hltrailingws": true,
-	    "savecursor": true
+	    "diffgutter": true,        # Visual cue for changes in current file
+	    "fmt-onsave": true,        # Format on save
+	    "hlsearch": true,          # Matched letters and background color
+	    "hltrailingws": true,      # Any type of white space is highlighted
+	    "savecursor": true,        # Cursor locates in its last position from previous session
+	    "scrollbar": true          # Optional
 
-	    # lsp plugin will update `bindings.json` with the following options
+	    # lsp plugin will update file with the following options
 
 	    "lsp.ignoreMessages": "LS message1 to ignore|LS message 2 to ignore|...",
 	    "lsp.ignoreTriggerCharacters": "completion,signature",
@@ -104,7 +106,25 @@ repository if the language is already supported and modify it as desired.
 
 	}
 	```
-	Enter `Ctrl + e` inside Micro and then `set` followed by any
-	additional option you may want in addition to the recommended ones.
+	Enter `Ctrl + e` inside Micro and then `set` followed by any additional option you may want in addition to the recommended ones.
 
-Check the Micro [options](https://github.com/zyedidia/micro/blob/master/runtime/help/options.md) tab for further information
+	Check the Micro [options](https://github.com/zyedidia/micro/blob/master/runtime/help/options.md) tab for further information
+
+	```
+	# Expected bindings to be found in `bindings.json` after plugin install
+	{
+	    "Alt-/": "lua:comment.comment",
+	    "Alt-d": "command:definition",
+	    "Alt-f": "command:format",
+	    "Alt-k": "command:hover",
+	    "Alt-r": "command:references",
+	    "CtrlSpace": "command:lspcompletion",
+	    "CtrlUnderscore": "lua:comment.comment",
+	    "F1": "command:cheat",
+	    "F12": "command:makeup",
+	    "F5": "command:runit",
+	    "F9": "command:makeupbg"
+	}
+	```
+
+	Check the Micro [keybindings](https://github.com/zyedidia/micro/blob/master/runtime/help/keybindings.md) tab for further information
