@@ -90,7 +90,7 @@ repository if the language is already supported and modify it as desired.
 	    "aspell.check": "on",
 	    "aspell.lang": "en",       # Native or any language
 	    "colorcolumn": 80,         # Rule
-	    "colorscheme": "pyrcula",  # Or any color scheme fitting the python syntax file
+	    "colorscheme": "pyrcula",  # Or any color scheme fitting the Python syntax file
 	    "diffgutter": true,        # Visual cue for changes in current file
 	    "fmt-onsave": true,        # Format on save
 	    "hlsearch": true,          # Matched letters and background color
@@ -128,3 +128,10 @@ repository if the language is already supported and modify it as desired.
 	```
 
 	Check the Micro [keybindings](https://github.com/zyedidia/micro/blob/master/runtime/help/keybindings.md) tab for further information
+
+## What's next?
+
+- [ ] Add guidelines for windows
+- [ ] Adapt makefile for windows
+- [ ] Add new color schemes (at least up to ten)
+- [ ] Expand and improve syntax file
