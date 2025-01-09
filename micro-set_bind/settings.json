@@ -1,0 +1,15 @@
+{
+    "aspell.check": "on",
+    "aspell.lang": "en",
+    "colorcolumn": 80,
+    "colorscheme": "catppuccin-mocha",
+    "diffgutter": true,
+    "fmt-onsave": true,
+    "hlsearch": true,
+    "hltrailingws": true,
+    "lsp.ignoreMessages": "LS message1 to ignore|LS message 2 to ignore|...",
+    "lsp.ignoreTriggerCharacters": "completion,signature",
+    "lsp.server": "python=pylsp",
+    "savecursor": true,
+    "scrollbar": true
+}
