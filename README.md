@@ -79,6 +79,9 @@ repository if the language is already supported and modify it as desired.
 	- [`cheat`](https://github.com/terokarvinen/micro-cheat): pressing `F1` opens a new tab with a cheatsheet of concepts from the current working language. Although mostly basic concepts of the language, the file can be modify and expand upon as needed.  
  	 __NOTE:__ the path stated in *main.lua* at line 11 __=>__ *local cheatdir = config.ConfigDir.."/plug/micro-cheat/cheatsheets/"*
 	           conflicts with the actual path installed for the plugin, instead of __micro-cheat__ change it to __cheat__
+	- [`snippets`](https://github.com/micro-editor/updated-plugins/tree/master/micro-snippets-plugin): adds vim like snippets capabilities to Micro, i.e. right next `def`:
+		- `Alt + s`: inserts the snippet
+		- `Alt + w`: toggle between elements from the snippet
 
 
 3. Settings and key bindings:
@@ -111,13 +114,16 @@ repository if the language is already supported and modify it as desired.
 	Check the Micro [options](https://github.com/zyedidia/micro/blob/master/runtime/help/options.md) tab for further information
 
 	```
-	# Expected bindings to be found in `bindings.json` after plugin install
+	# Expected key bindings in `bindings.json` after plugin install
 	{
 	    "Alt-/": "lua:comment.comment",
-	    "Alt-d": "command:definition",
-	    "Alt-f": "command:format",
-	    "Alt-k": "command:hover",
-	    "Alt-r": "command:references",
+    	"Alt-a": "lua:snippets.Accept",
+    	"Alt-d": "command:definition",
+    	"Alt-f": "command:format",
+    	"Alt-k": "command:hover",
+    	"Alt-r": "command:references",
+    	"Alt-s": "lua:snippets.Insert",
+    	"Alt-w": "lua:snippets.Next",
 	    "CtrlSpace": "command:lspcompletion",
 	    "CtrlUnderscore": "lua:comment.comment",
 	    "F1": "command:cheat",
