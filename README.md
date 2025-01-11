@@ -116,20 +116,20 @@ repository if the language is already supported and modify it as desired.
 	```
 	# Expected key bindings in `bindings.json` after plugin install
 	{
-	    "Alt-/": "lua:comment.comment",
-    	"Alt-a": "lua:snippets.Accept",
-    	"Alt-d": "command:definition",
-    	"Alt-f": "command:format",
-    	"Alt-k": "command:hover",
-    	"Alt-r": "command:references",
-    	"Alt-s": "lua:snippets.Insert",
-    	"Alt-w": "lua:snippets.Next",
-	    "CtrlSpace": "command:lspcompletion",
-	    "CtrlUnderscore": "lua:comment.comment",
-	    "F1": "command:cheat",
-	    "F12": "command:makeup",
-	    "F5": "command:runit",
-	    "F9": "command:makeupbg"
+		"Alt-/": "lua:comment.comment",
+		"Alt-a": "lua:snippets.Accept",
+		"Alt-d": "command:definition",
+		"Alt-f": "command:format",
+		"Alt-k": "command:hover",
+		"Alt-r": "command:references",
+		"Alt-s": "lua:snippets.Insert",
+		"Alt-w": "lua:snippets.Next",
+		"CtrlSpace": "command:lspcompletion",
+		"CtrlUnderscore": "lua:comment.comment",
+		"F1": "command:cheat",
+		"F12": "command:makeup",
+		"F5": "command:runit",
+		"F9": "command:makeupbg"
 	}
 	```
 
