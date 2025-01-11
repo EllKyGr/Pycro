@@ -1,9 +1,9 @@
-.SILENT: all micro checksum pycro u-pycro u-micro add clean plugins
-.PHONY: all micro checksum pycro u-pycro u-micro add clean plugins
+.SILENT: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt
+.PHONY: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt
 
 micro_dir := ~/.config/micro
 SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
-plugins := aspell filemanager lsp runit manipulator quoter cheat
+plugins := aspell filemanager lsp runit manipulator quoter cheat snippets
 
 all: micro pycro plugins
 	echo "All Pycro files installed.\n'make clean' removes cloned repository and its contents\
@@ -30,9 +30,17 @@ add:
 	echo "Colorscheme(s) at: $(micro_dir)/colorschemes"; mkdir -p $(micro_dir)/colorschemes; ls $$PWD/colorschemes | tail; \
 	echo "Syntax file(s) at: $(micro_dir)/syntax"; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail; \
 
-plugins:
-	echo "Installing plugins"
+plugins: auto-fmt
 	micro -plugin install $(plugins);
+
+auto-fmt:
+	echo "Installing plugins"; mkdir auto-fmt; touch auto-fmt/makefile;
+	echo "autofmt:\n\tgit clone git@github.com:a11ce/micro-autofmt.git\
+	      \nclean:\n\tcd ../; rm -r auto-fmt" > auto-fmt/makefile; \
+	# Clone autofmt repository;   copy its files to micro plug
+	cd auto-fmt/; $(MAKE) -s autofmt; cd micro-autofmt/; $(MAKE) -s install; \
+	# Remove cloned repository
+	$(MAKE) -s clean
 
 u-pycro: json
 	echo "Removing Pycro files"; \
