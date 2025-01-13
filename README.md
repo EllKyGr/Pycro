@@ -43,7 +43,7 @@ repository if the language is already supported and modify it as desired.
 1. Create a new Python environment and activate it. (optional but recommended)__*__
 2. `git clone` git@github.com:EllKyGr/Pycro.git then `make`
 
-	- `make u-pycro` removes all Pycro related files, i.e. all color schemes with __*_py.micro__ and the __python3.yaml__
+	- `make u-pycro` removes all Pycro related files, i.e. all color schemes with __py.micro__ and the __python3.yaml__
 	- `make u-micro` removes all Pycro and Micro related files from your system. __NOTE:__ if your Micro bin is located anywhere but /usr/bin
 		this command won't be able to delete it.
 	- After the setup is complete you can run `make clean` to remove this repository since its content will be relocated. It will, however, point out if the __makefile__ is deleted as well
@@ -54,7 +54,7 @@ repository if the language is already supported and modify it as desired.
 2. Create a new Python environment and activate it. (optional but recommended)__*__
 3. `git clone` git@github.com:EllKyGr/Pycro.git then `make pycro`
 
-__*__The main reason for using a Python environment is just for containment sake. On the other hand the plugins related to this packages will not work as intended if the latter are missing.
+__*__ The main reason for using a Python environment is just for containment sake. On the other hand the plugins related to this packages will not work as intended if the latter are missing.
 Meaning to use Micro's full capacity (while developing Python) these two packages should be present.
 
 ### Step by Step
