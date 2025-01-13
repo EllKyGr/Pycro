@@ -13,7 +13,7 @@ all: micro pycro python plugins plug-fix
 	      \nthrough previously mentioned make commands if makefile is deleted!"
 
 micro: checksum
-	cd /usr/bin; echo "\nInstalling Micro at $$PWD"; \
+	cd /usr/bin; echo "\nInstalling Micro at => $$PWD\n"; \
 	curl https://getmic.ro | sudo bash;
 
 checksum:
@@ -47,9 +47,9 @@ auto-fmt:
 	echo "\nInstalling plugins"; mkdir auto-fmt; touch auto-fmt/makefile;
 	echo "autofmt:\n\tgit clone --quiet git@github.com:a11ce/micro-autofmt.git" > auto-fmt/makefile; \
 	# Clone autofmt repository;   copy its files to micro plug
-	cd auto-fmt/; $(MAKE) -s autofmt; cd micro-autofmt/; $(MAKE) -s install; \
+	cd auto-fmt/; $(MAKE) -s autofmt; cd micro-autofmt/; $(MAKE) -s install
 	# Remove cloned repository
-	cd ../../; rm -rf auto-fmt;
+	rm -rf auto-fmt;
 
 plug-fix:
 	curl -s https://raw.githubusercontent.com/NicolaiSoeborg/manipulator-plugin/refs/heads/master/manipulator.lua -o manipulator.lua; \
