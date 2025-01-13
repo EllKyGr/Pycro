@@ -66,9 +66,9 @@ json:
 	rm -i $(micro_dir)/*.json;
 
 u-micro:
-	cd /usr/bin; echo "Attempting to remove Micro from $$PWD"; rm -i micro; \
-	cd ~/.config/; echo "Attempting to remove Micro config from $$PWD"; rm -ir micro/;
+	cd /usr/bin; echo "Attempting to remove Micro from $$PWD"; sudo rm -i micro; \
+	cd ~/.config/; echo "Removing Micro config from $$PWD"; rm -rf micro/;
 
 clean:
-	rm -rf colorschemes/ syntax/ micro-set_bin/ README.md test_sample.py; \
+	rm -rf colorschemes/ syntax/ micro-set_bind README.md test_sample.py; \
 	echo "Attempting to remove makefile... "; rm -i makefile;
