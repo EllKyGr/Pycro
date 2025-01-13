@@ -24,9 +24,9 @@ else
 endif
 
 pycro: add
-	cp 	micro-set_bin/*.json $(micro_dir); cp colorschemes/*.micro $(micro_dir)/colorschemes; cp syntax/*.yaml $(micro_dir)/syntax
+	cp 	micro-set_bind/*.json $(micro_dir); cp colorschemes/*.micro $(micro_dir)/colorschemes; cp syntax/*.yaml $(micro_dir)/syntax
 add:
-	echo "Adding Pycro files at $(micro_dir)\nBindings and settings:"; ls $$PWD/micro-set_bin/*.json | tail -2; \
+	echo "Adding Pycro files at $(micro_dir)\nBindings and settings:"; ls $$PWD/micro-set_bind/*.json | tail -2; \
 	echo "\nColorscheme(s) at: $(micro_dir)/colorschemes"; mkdir -p $(micro_dir)/colorschemes; ls $$PWD/colorschemes | tail; \
 	echo "\nSyntax file(s) at: $(micro_dir)/syntax"; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail;
 
@@ -45,7 +45,7 @@ plugins: auto-fmt
 
 auto-fmt:
 	echo "\nInstalling plugins"; mkdir auto-fmt; touch auto-fmt/makefile;
-	echo "autofmt:\n\tgit clone --quiet git@github.com:a11ce/micro-autofmt.git\ > auto-fmt/makefile; \
+	echo "autofmt:\n\tgit clone --quiet git@github.com:a11ce/micro-autofmt.git" > auto-fmt/makefile; \
 	# Clone autofmt repository;   copy its files to micro plug
 	cd auto-fmt/; $(MAKE) -s autofmt; cd micro-autofmt/; $(MAKE) -s install; \
 	# Remove cloned repository
