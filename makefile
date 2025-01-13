@@ -6,11 +6,11 @@ SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
 plugins := aspell filemanager lsp runit manipulator quoter cheat snippets
 
 all: micro pycro python plugins plug-fix
-	echo "\nAll Pycro files installed.\n'make clean' removes cloned repository and its contents\
-	      \n'make u-pycro' removes Pycro files.\
-	      \n'make u-micro' removes both Micro and Pycro from your system\
-	      \nWARNING: 'make clean' may invalidate the removal of both Micro and Pycro\
-	      \nthrough previously mentioned make commands if makefile is deleted!"
+	echo "\nAll Pycro files installed.\n'make clean' removes cloned repository and its contents\n\
+	      \n\t'make u-pycro' removes Pycro files.\
+	      \n\t'make u-micro' removes both Micro and Pycro from your system\n\
+	      \n\tWARNING: 'make clean' may invalidate the removal of both Micro and Pycro\
+	      \n\tthrough previously mentioned make commands if makefile is deleted!"
 
 micro: checksum
 	cd /usr/bin; echo "\nInstalling Micro at => $$PWD\n"; \
@@ -70,4 +70,4 @@ u-micro:
 
 clean:
 	rm -rf colorschemes/ syntax/ micro-set_bind README.md test_sample.py; \
-	echo "Attempting to remove makefile... "; rm -i makefile;
+	echo "makefile moved to parent directory"; cd ../; mv Pycro/makefile ./; rm -rf Pycro/;
