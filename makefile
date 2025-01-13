@@ -1,11 +1,11 @@
-.SILENT: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt
-.PHONY: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt
+.SILENT: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt python lsp yapf plug-fix
+.PHONY: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt python lsp yapf plug-fix
 
 micro_dir := ~/.config/micro
 SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
 plugins := aspell filemanager lsp runit manipulator quoter cheat snippets
 
-all: micro pycro plugins
+all: micro pycro python plugins plug-fix
 	echo "All Pycro files installed.\n'make clean' removes cloned repository and its contents\
 	      \n'make u-pycro' removes Pycro files.\
 	      \n'make u-micro' removes both Micro and Pycro from your system\
@@ -13,7 +13,7 @@ all: micro pycro plugins
 	      \nthrough previously mentioned make commands if makefile is deleted!"
 
 micro: checksum
-	cd /usr/bin; echo "Installing Micro at $$PWD\n"; \
+	cd /usr/bin; echo "Installing Micro at $$PWD"; \
 	curl https://getmic.ro | sudo bash;
 
 checksum:
@@ -28,7 +28,17 @@ pycro: add
 add:
 	echo "Adding Pycro files at $(micro_dir)\nBindings and settings:"; ls $$PWD/micro-set_bin/*.json | tail -2; \
 	echo "Colorscheme(s) at: $(micro_dir)/colorschemes"; mkdir -p $(micro_dir)/colorschemes; ls $$PWD/colorschemes | tail; \
-	echo "Syntax file(s) at: $(micro_dir)/syntax"; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail; \
+	echo "Syntax file(s) at: $(micro_dir)/syntax"; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail;
+
+python: lsp yapf
+	echo "$^ installed"
+lsp:
+	echo "Installing $@"; \
+	pip install python-lsp-server;
+
+yapf:
+	echo "Installing $@"; \
+	pip install git+https://github.com/google/yapf.git;
 
 plugins: auto-fmt
 	micro -plugin install $(plugins);
@@ -40,7 +50,12 @@ auto-fmt:
 	# Clone autofmt repository;   copy its files to micro plug
 	cd auto-fmt/; $(MAKE) -s autofmt; cd micro-autofmt/; $(MAKE) -s install; \
 	# Remove cloned repository
-	$(MAKE) -s clean
+	$(MAKE) -s clean;
+
+plug-fix:
+	curl -s https://raw.githubusercontent.com/NicolaiSoeborg/manipulator-plugin/refs/heads/master/manipulator.lua -o manipulator.lua; \
+	mv manipulator.lua $(micro_dir)/plug/manipulator; \
+	sed -i 's#/micro-cheat/#/cheat/#g' $(micro_dir)/plug/cheat/main.lua;
 
 u-pycro: json
 	echo "Removing Pycro files"; \
