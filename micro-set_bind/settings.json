@@ -2,7 +2,7 @@
     "aspell.check": "on",
     "aspell.lang": "en",
     "colorcolumn": 80,
-    "colorscheme": "catppuccin-mocha",
+    "colorscheme": "catppuccin-mocha_py",
     "diffgutter": true,
     "fmt-onsave": true,
     "hlsearch": true,
