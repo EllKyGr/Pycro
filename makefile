@@ -6,7 +6,7 @@ SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
 plugins := aspell filemanager lsp runit manipulator quoter cheat snippets
 
 all: micro pycro python plugins plug-fix
-	echo "\nAll Pycro files installed.\n'make clean' removes cloned repository and its contents\n\
+	echo "\nAll Pycro files installed.\n\t'make clean' removes cloned repository and its contents\n\
 	      \n\t'make u-pycro' removes Pycro files.\
 	      \n\t'make u-micro' removes both Micro and Pycro from your system\n\
 	      \n\tWARNING: 'make clean' may invalidate the removal of both Micro and Pycro\
@@ -33,11 +33,11 @@ add:
 python: lsp yapf
 	echo "\n$^ installed!"
 lsp:
-	echo "\nInstalling $@"; \
+	echo "\nInstalling $@\n"; \
 	pip install python-lsp-server;
 
 yapf:
-	echo "\nInstalling $@"; \
+	echo "\nInstalling $@\n"; \
 	pip install git+https://github.com/google/yapf.git;
 
 plugins: auto-fmt
