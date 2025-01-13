@@ -34,6 +34,10 @@ Although the present files are specific for Python, the overall code template pr
 both syntax and color scheme can be adjusted to meet the specifics of any other language. Refer to the Micro syntax
 repository if the language is already supported and modify it as desired.
 
+#### Requirements:
+- Python installed
+- Either conda, venv or any tool for environment setup (recommended)
+
 ## How to set
 1. Installing Micro:
 	Micro 2.0.XX => https://github.com/benweissmann/getmic.ro
