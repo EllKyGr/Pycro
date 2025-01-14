@@ -20,7 +20,7 @@ Present color schemes are designed to comply with the syntax file. Custom
 color schemes should follow the same rules in order to work properly. Both
 files contain commentary enough explaining which command is responsible for
 the specific color scheme.
-For instance *pyrcula.micro* expands/modifies the original color scheme from
+For instance *darcula_py.micro* expands/modifies the original color scheme from
 *darcula.micro* to adjust for the new statements.
 
 ### Sample
@@ -41,7 +41,7 @@ repository if the language is already supported and modify it as desired.
 2. `git clone` git@github.com:EllKyGr/Pycro.git then `make`
 
 	- `make u-pycro` removes all Pycro related files, i.e. all color schemes with __py.micro__ and the __python3.yaml__
-	- `make u-micro` removes all Pycro and Micro related files from your system. __NOTE:__ if your Micro bin is located anywhere but /usr/bin
+	- `make u-micro` removes all Pycro and Micro related files from your system. __NOTE:__ if your Micro bin is located anywhere but __/usr/bin__
 		this command won't be able to delete it.
 	- After the setup is complete you can run `make clean` to remove this repository since its content will be relocated. It will, however, point out if the __makefile__ is deleted as well
 		the previous commands will no longer be available, thus the removal of Pycro (and/ or Micro) should be perform manually. Refer to the step by step section if that's the case.
@@ -116,7 +116,7 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 	    "aspell.check": "on",
 	    "aspell.lang": "en",       # Native or any language
 	    "colorcolumn": 80,         # Rule
-	    "colorscheme": "pyrcula",  # Or any color scheme fitting the Python syntax file
+	    "colorscheme": "darcula_py",  # Or any color scheme fitting the Python syntax file
 	    "diffgutter": true,        # Visual cue for changes in current file
 	    "fmt-onsave": true,        # Format on save
 	    "hlsearch": true,          # Matched letters and background color
@@ -141,7 +141,7 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 	{
         "Alt-/": "lua:comment.comment",
         "Alt-a": "lua:snippets.Accept",
-        "Alt-d": "command:definition",
+        "Alt-d": "lua:snippets.Cancel",
         "Alt-f": "command:format",
         "Alt-k": "command:hover",
         "Alt-r": "command:references",
