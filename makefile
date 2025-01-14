@@ -6,9 +6,9 @@ SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
 plugins := aspell filemanager lsp runit manipulator quoter cheat snippets
 
 all: micro pycro python plugins plug-fix
-	echo "\nAll Pycro files installed.\n\t'make clean' removes cloned repository and its contents\n\
-	      \n\t'make u-pycro' removes Pycro files.\
-	      \n\t'make u-micro' removes both Micro and Pycro from your system\n\
+	echo "\n===== All Pycro files installed! =====\n\n\t'make clean' => removes cloned repository and its contents\n\
+	      \n\t'make u-pycro' => removes Pycro files.\
+	      \n\t'make u-micro' => removes both Micro and Pycro from your system\n\
 	      \n\tWARNING: 'make clean' will relocate makefile to parent directory,\
 	      \n\tdeleting it will unable the use of former commands!"
 
@@ -18,7 +18,7 @@ micro: checksum
 
 checksum:
 ifeq ($(SHA), 45e188ef0d5300cb04dcdece3934fa92f47b7581125c615a8bfae33ac7667a16)
-	echo "Micro quick script available";
+	echo "===== Micro quick script available =====";
 else
 	echo $(error ERROR: Unable to verify script rerun makefile later on);
 endif
@@ -26,25 +26,25 @@ endif
 pycro: add
 	cp 	micro-set_bind/*.json $(micro_dir); cp colorschemes/*.micro $(micro_dir)/colorschemes; cp syntax/*.yaml $(micro_dir)/syntax
 add:
-	echo "Adding Pycro files at $(micro_dir)\nBindings and settings:"; ls $$PWD/micro-set_bind/*.json | grep -e '[a-z]*\.json'
-	echo "\nColorscheme(s) at: $(micro_dir)/colorschemes"; mkdir -p $(micro_dir)/colorschemes; ls $$PWD/colorschemes | tail; \
-	echo "\nSyntax file(s) at: $(micro_dir)/syntax"; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail;
+	echo "===== Adding Pycro files at $(micro_dir) =====\nBindings and settings:"; ls $$PWD/micro-set_bind/*.json | grep -o '[a-z]*\.json'
+	echo "\n===== Colorscheme(s) at: $(micro_dir)/colorschemes ====="; mkdir -p $(micro_dir)/colorschemes; ls $$PWD/colorschemes | tail; \
+	echo "\n===== Syntax file(s) at: $(micro_dir)/syntax ====="; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail;
 
 python: lsp yapf
-	echo "\n$^ installed!"
+	echo "\n===== $^ installed! ====="
 lsp:
-	echo "\nInstalling $@\n"; \
+	echo "\n===== Installing $@ =====\n"; \
 	pip install python-lsp-server;
 
 yapf:
-	echo "\nInstalling $@\n"; \
+	echo "\n===== Installing $@\n ====="; \
 	pip install git+https://github.com/google/yapf.git;
 
 plugins: auto-fmt
 	micro -plugin install $(plugins);
 
 auto-fmt:
-	echo "\nInstalling plugins"; mkdir auto-fmt; touch auto-fmt/makefile;
+	echo "\n===== Installing plugins ====="; mkdir auto-fmt; touch auto-fmt/makefile;
 	echo "autofmt:\n\tgit clone --quiet git@github.com:a11ce/micro-autofmt.git" > auto-fmt/makefile; \
 	# Clone autofmt repository;   copy its files to micro plug
 	cd auto-fmt/; $(MAKE) -s autofmt; cd micro-autofmt/; $(MAKE) -s install
@@ -57,11 +57,11 @@ plug-fix:
 	sed -i 's#/micro-cheat/#/cheat/#g' $(micro_dir)/plug/cheat/main.lua;
 
 u-pycro: json
-	echo "Removing Pycro files"; \
+	echo "===== Removing Pycro files ====="; \
 	rm -f $(micro_dir)/colorschemes/*_py.micro $(micro_dir)/syntax/python3.yaml;
 
 json:
-	echo "NOTE: JSON files may contain additional user preferences"; \
+	echo "===== NOTE: JSON files may contain additional user preferences ====="; \
 	rm -i $(micro_dir)/*.json;
 
 u-micro:
@@ -70,4 +70,4 @@ u-micro:
 
 clean:
 	rm -rf colorschemes/ syntax/ micro-set_bind README.md test_sample.py; \
-	echo "makefile moved to parent directory"; cd ../; mv Pycro/makefile ./; rm -rf Pycro/;
+	echo "'makefile' moved to parent directory"; cd ../; mv Pycro/makefile ./; rm -rf Pycro/;
