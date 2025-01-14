@@ -14,7 +14,6 @@ several other new handy highlighted cases.
 This isn't by any means a full fledged error prove file: either by current
 Micro limitations, statement overruling, missing regex statements (or isn't
 specific enough) some words might not be highlighted as expected (i.e urls).
-Add to `~/.config/micro/syntax/` the `python3.yaml` after installing Micro.
 
 ### Color schemes
 Present color schemes are designed to comply with the syntax file. Custom
@@ -23,8 +22,6 @@ files contain commentary enough explaining which command is responsible for
 the specific color scheme.
 For instance *pyrcula.micro* expands/modifies the original color scheme from
 *darcula.micro* to adjust for the new statements.
-Add to `~/.config/micro/colorschemes/` the `color_scheme_file.micro` either from
-here, the Micro [repo](https://github.com/zyedidia/micro/tree/master/runtime/colorschemes) or a custom one.
 
 ### Sample
 Several simple lines of code which encompasses the most common highlighted
@@ -59,7 +56,10 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 
 ### Step by Step
 1. Installing Micro:
-	Micro 2.0.XX => https://github.com/benweissmann/getmic.ro
+	- Micro 2.0.XX => https://github.com/benweissmann/getmic.ro
+	- Add to `~/.config/micro/syntax/` the `python3.yaml` after installing Micro.
+	- Add to `~/.config/micro/colorschemes/` the `color_scheme_file.micro` either from here, the Micro [repo](https://github.com/zyedidia/micro/tree/master/runtime/colorschemes) or a custom one.
+
 2. Plugins `micro -plugin install <plugin>`:
 	- [`aspell`](https://github.com/priner/micro-aspell-plugin): spell checking. `addpersonal` adds word to personal dict when cursor is placed under said word.
 
