@@ -38,7 +38,7 @@ repository if the language is already supported and modify it as desired.
 ## How to set
 ### TL;DR
 1. Create a new Python environment and activate it. (optional but recommended)__*__
-2. `git clone` git@github.com:EllKyGr/Pycro.git then `make`
+2. `git clone git@github.com:EllKyGr/Pycro.git` then `make`
 
 	- `make u-pycro` removes all Pycro related files, i.e. all color schemes with __py.micro__ and the __python3.yaml__
 	- `make u-micro` removes all Pycro and Micro related files from your system. __NOTE:__ if your Micro bin is located anywhere but __/usr/bin__
@@ -49,7 +49,7 @@ repository if the language is already supported and modify it as desired.
 #### Micro already installed?
 1. Although not necessary for the present settings, be aware of the __micro__ bin file location: as stated previously, removing the editor will not be possible with the present makefile
 2. Create a new Python environment and activate it. (optional but recommended)__*__
-3. `git clone` git@github.com:EllKyGr/Pycro.git then `make pycro`
+3. `git clone git@github.com:EllKyGr/Pycro.git` then `make pycro`
 
 __*__ The main reason for using a Python environment is just for containment sake. On the other hand the plugins related to this packages will not work as intended if the latter are missing.
 Meaning to use Micro's full capacity (while developing Python) these two packages should be present.
@@ -84,7 +84,7 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 		2. `cd` to micro-autofmt/ then `make`. The cloned repository is no longer needed after installing the plugin files so it can be removed aftewards.
 		3. Currently only C/C++/C#, Python, Racket, JavaScript, Rust and Go are supported.
 			   Every language require its specific formatter
-		4. For Python run: `pip install` git+https://github.com/google/yapf.git
+		4. For Python run: `pip install git+https://github.com/google/yapf.git`
 			   either directly or within environment.
 	- [`runit`](https://github.com/terokarvinen/micro-run): allows to run, compile and make files on the go.
 		- `F5`: saves and run
