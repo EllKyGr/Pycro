@@ -52,7 +52,8 @@ repository if the language is already supported and modify it as desired.
 3. `git clone git@github.com:EllKyGr/Pycro.git` then `make pycro`
 
 #### Without Git
-- `curl -LO https://github.com/EllKyGr/Pycro/archive/refs/heads/main.zip; unzip -q main.zip; cd Pycro-main; make`
+- `curl -LO https://github.com/EllKyGr/Pycro/archive/refs/heads/main.zip`
+- `unzip -q main.zip; cd Pycro-main; make`
 
 __*__ The main reason for using a Python environment is just for containment sake. On the other hand the plugins related to this packages will not work as intended if the latter are missing.
 Meaning to use Micro's full capacity (while developing Python) these two packages should be present.
