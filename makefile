@@ -6,11 +6,11 @@ SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
 plugins := aspell filemanager lsp runit manipulator quoter cheat snippets
 
 all: micro pycro python plugins plug-fix
-	echo "\n===== All Pycro files installed! =====\n\n\t'make clean' => removes cloned repository and its contents\n\
-	      \n\t'make u-pycro' => removes Pycro files.\
-	      \n\t'make u-micro' => removes both Micro and Pycro from your system\n\
-	      \n\tWARNING: 'make clean' will relocate makefile to parent directory,\
-	      \n\tdeleting it will unable the use of former commands!"
+	echo "\n===== All Pycro files installed! =====\n\n'make clean' => removes cloned repository and its contents\n\
+	      \n'make u-pycro' => removes Pycro files.\
+	      \n'make u-micro' => removes both Micro and Pycro from your system\n\
+	      \nWARNING: 'make clean' will relocate makefile to parent directory,\
+	      \ndeleting it will unable the use of former commands!"
 
 micro: checksum
 	cd /usr/bin; echo "\nInstalling Micro at => $$PWD\n"; \
@@ -26,7 +26,7 @@ endif
 pycro: add
 	cp 	micro-set_bind/*.json $(micro_dir); cp colorschemes/*.micro $(micro_dir)/colorschemes; cp syntax/*.yaml $(micro_dir)/syntax
 add:
-	echo "===== Adding Pycro files at $(micro_dir) =====\nBindings and settings:"; ls $$PWD/micro-set_bind/*.json | grep -o '[a-z]*\.json'
+	echo "===== Adding Pycro files at $(micro_dir) =====\nConfiguration files:"; ls $$PWD/micro-set_bind/*.json | grep -o '[a-z]*\.json'
 	echo "\n===== Colorscheme(s) at: $(micro_dir)/colorschemes ====="; mkdir -p $(micro_dir)/colorschemes; ls $$PWD/colorschemes | tail; \
 	echo "\n===== Syntax file(s) at: $(micro_dir)/syntax ====="; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail;
 
@@ -37,7 +37,7 @@ lsp:
 	pip install python-lsp-server;
 
 yapf:
-	echo "\n===== Installing $@\n ====="; \
+	echo "\n===== Installing $@ =====\n"; \
 	pip install git+https://github.com/google/yapf.git;
 
 plugins: auto-fmt
