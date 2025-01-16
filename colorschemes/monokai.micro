@@ -1,5 +1,5 @@
 # Language related syntax
-color-link default "#FF9366,#333333"
+color-link default "#F8F8F2,#333333"
 color-link comment "#756F52,#333333"
 color-link constant "bold #7D7075,#333333"
 color-link constant.bool "bold #005A89,#333333"   # True && False

@@ -14,7 +14,7 @@ color-link identifier.var "bold #cdd6f4"          # New: Variables, attributes, 
 color-link identifier.class "bold #f9e2af"        # New: As stated and few more*
 color-link message "bold #f38ba8,#181825"         # As intended both for errors and some others
 color-link preproc "italic #89b4fa,#1e1e2e"       # Statement preceded by an @
-color-link statement "#cba6f7,#1e1e2e"            # Several keywords*
+color-link statement "#af8bda,#1e1e2e"            # Several keywords*
 color-link symbol "bold #CCCCCC,#1e1e2e"          # Default color
 color-link type "#f9e2af,#1e1e2e"                 # Type hint in both inside and outisde of functions
 color-link type.keyword "#f9e2af,#1e1e2e"         # Built-in types*
