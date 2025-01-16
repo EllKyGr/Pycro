@@ -46,14 +46,28 @@ repository if the language is already supported and modify it as desired.
 	- After the setup is complete you can run `make clean` to remove this repository since its content will be relocated. It will, however, point out if the __makefile__ is deleted as well
 		the previous commands will no longer be available, thus the removal of Pycro (and/ or Micro) should be perform manually. Refer to the step by step section if that's the case.
 
+#### Termux
+1. Install git then shasum with `pkg install perl`
+2. After cloning open the makefile and change(-)
+	```
+	micro: checksum
+		- cd /usr/bin/; echo "\nInstalling Micro at => $$PWD\n"; \
+		+ cd /data/data/com.termux/files/usr/bin/; echo "\nInstalling Micro at => $$PWD\n"; \
+		- curl https://getmic.ro | sudo bash;
+		+ curl https://getmic.ro | bash;
+	```
+3. Then `make`. The same commands apply to remove Pycro files and Micro however to remove Micro
+using the makefile, the following line should be changed:
+	```
+	u-micro:
+		- cd /usr/bin; echo "Attempting to remove Micro from $$PWD"; sudo rm -i micro; \
+		+ cd /data/data/com.termux/files/usr/bin; echo "Attempting to remove Micro from $$PWD"; rm -i micro; \
+	```
+
 #### Micro already installed?
 1. Although not necessary for the present settings, be aware of the __micro__ bin file location: as stated previously, removing the editor will not be possible with the present makefile
 2. Create a new Python environment and activate it. (optional but recommended)__*__
 3. `git clone git@github.com:EllKyGr/Pycro.git` then `make pycro`
-
-#### Without Git
-- `curl -LO https://github.com/EllKyGr/Pycro/archive/refs/heads/main.zip`
-- `unzip -q main.zip; cd Pycro-main; make`
 
 __*__ The main reason for using a Python environment is just for containment sake. On the other hand the plugins related to this packages will not work as intended if the latter are missing.
 Meaning to use Micro's full capacity (while developing Python) these two packages should be present.
