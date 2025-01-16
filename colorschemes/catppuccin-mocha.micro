@@ -12,7 +12,7 @@ color-link constant.string.url "italic #777777"   # New: does not work*
 color-link identifier "italic #f38ba8,#1e1e2e"    # built in functions, def functions and function calls with or without dot
 color-link identifier.var "bold #cdd6f4"          # New: Variables, attributes, placeholders*
 color-link identifier.class "bold #f9e2af"        # New: As stated and few more*
-color-link message "bold #f38ba8,#181825"        # As intended both for errors and some others
+color-link message "bold #f38ba8,#181825"         # As intended both for errors and some others
 color-link preproc "italic #89b4fa,#1e1e2e"       # Statement preceded by an @
 color-link statement "#cba6f7,#1e1e2e"            # Several keywords*
 color-link symbol "bold #CCCCCC,#1e1e2e"          # Default color
@@ -33,6 +33,7 @@ color-link tabbar "#242424,#CCCCCC"
 color-link indent-char "#4F4F4F,#1e1e2e"
 color-link line-number "#7f849c,#313244"
 color-link current-line-number "#b4befe,#1e1e2e"
+color-link scrollbar "#b4befe,#1e1e2e"
 # 37, 38, 39 affected if "diffgutter" is set to true in "settings.json"
 color-link diff-added "#a6e3a1"
 color-link diff-modified "#89b4fa"
