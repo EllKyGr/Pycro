@@ -48,9 +48,6 @@ second_n -= 3
 MULTI = first_n * second_n
 DIV = second_n / first_n
 
-# Data Structures NOTE: As of December 30th 2024 any DT with variables won't change
-# to the expected color scheme within the presence of strings (or quotes for that matter)
-# floats and integers work as expected
 alpha: list[Any] = ["a", "b", "c", "d", ant, five, n_list, empty_dict]
 a_list: list = [five, empty_dict, ant, 5.5, 4_505.8]
 # After ':' treats the expression as type instead of var
@@ -111,6 +108,3 @@ with open("test.py", "r") as file:
     data: list = file.readlines()
     lines: int = len(content)
     print(f"Total number of lines is {lines}")
-
-if one:
-    false
