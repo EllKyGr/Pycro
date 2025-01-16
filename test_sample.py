@@ -24,7 +24,7 @@ empty_dict: dict[int, str] = {}
 
 # f-string
 greeting: str = input("Enter your name: ")
-print(f"Hello, {greeting}!")  # NOTE: It will highlight even if no 'f' present
+print(f"Hello, {greeting}!")
 
 # Variable and literal comparison
 True is False
@@ -111,3 +111,6 @@ with open("test.py", "r") as file:
     data: list = file.readlines()
     lines: int = len(content)
     print(f"Total number of lines is {lines}")
+
+if one:
+    false
