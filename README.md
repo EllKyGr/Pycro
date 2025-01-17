@@ -8,7 +8,7 @@ developing in Python.
 Micro currently can highlight more than 100 languages and users can customize
 their editor with several methods. Although the repository counts with several
 [syntax files](https://github.com/zyedidia/micro/tree/master/runtime/syntax), and it's stated how can be improved to better suit the user
-experience, at the present it only addresses basic statements and keywords.
+experience, at the present it addresses general group statements and keywords.
 Thus the expanded syntax file present here adds type hint, function calls and
 several other new handy highlighted cases.
 This isn't by any means a full fledged error prove file: either by current
@@ -20,8 +20,8 @@ Present color schemes are designed to comply with the syntax file. Custom
 color schemes should follow the same rules in order to work properly. Both
 files contain commentary enough explaining which command is responsible for
 the specific color scheme.
-For instance *darcula_py.micro* expands/modifies the original color scheme from
-*darcula.micro* to adjust for the new statements.
+For instance  __darcula.micro__ in this repository extends/modifies the original color scheme
+in vanilla Micro to adjust for the new statements.
 
 ### Sample
 Several simple lines of code which encompasses the most common highlighted
@@ -32,7 +32,7 @@ both syntax and color scheme can be adjusted to meet the specifics of any other 
 repository if the language is already supported and modify it as desired.
 
 #### Requirements:
-- Python installed
+- Python 3 installed
 - Either conda, venv or any tool for environment setup (recommended)
 
 ## How to set
@@ -43,8 +43,8 @@ repository if the language is already supported and modify it as desired.
 	- `make u-pycro` removes all Pycro related files, i.e. all color schemes with __py.micro__ and the __python3.yaml__
 	- `make u-micro` removes all Pycro and Micro related files from your system. __NOTE:__ if your Micro bin is located anywhere but __/usr/bin__
 		this command won't be able to delete it.
-	- After the setup is complete you can run `make clean` to remove this repository since its content will be relocated. It will, however, point out if the __makefile__ is deleted as well
-		the previous commands will no longer be available, thus the removal of Pycro (and/ or Micro) should be perform manually. Refer to the step by step section if that's the case.
+	- After the setup is complete you can run `make clean` to remove this repository since its content will no longer be necessary. The __makefile__ would be relocated to the parent directory
+		so the previous commands are available. If deleted the removal of Pycro (and/ or Micro) should be perform manually. Refer to the step by step section if that's the case.
 
 #### Termux
 1. Install git then shasum with `pkg install perl`
@@ -57,7 +57,7 @@ repository if the language is already supported and modify it as desired.
 		+ curl https://getmic.ro | bash;
 	```
 3. Then `make`. The same commands apply to remove Pycro files and Micro however to remove Micro
-using the makefile, the following line should be changed:
+with the __makefile__, the following line should be changed:
 	```
 	u-micro:
 		- cd /usr/bin; echo "Attempting to remove Micro from $$PWD"; sudo rm -i micro; \
@@ -65,7 +65,7 @@ using the makefile, the following line should be changed:
 	```
 
 #### Micro already installed?
-1. Although not necessary for the present settings, be aware of the __micro__ bin file location: as stated previously, removing the editor will not be possible with the present makefile
+1. Although not necessary for the present settings, be aware of the __micro__ bin file location. (The __makefile__ can only remove Micro entirely if located at */usr/bin*)
 2. Create a new Python environment and activate it. (optional but recommended)__*__
 3. `git clone git@github.com:EllKyGr/Pycro.git` then `make pycro`
 
@@ -77,9 +77,10 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 	- Micro 2.0.XX => https://github.com/benweissmann/getmic.ro
 	- Add to `~/.config/micro/syntax/` the `python3.yaml` after installing Micro.
 	- Add to `~/.config/micro/colorschemes/` the `color_scheme_file.micro` either from here, the Micro [repo](https://github.com/zyedidia/micro/tree/master/runtime/colorschemes) or a custom one.
+	- Optional: create a Python environment with your favorite tool before proceeding.
 
 2. Plugins `micro -plugin install <plugin>`:
-	- [`aspell`](https://github.com/priner/micro-aspell-plugin): spell checking. `addpersonal` adds word to personal dict when cursor is placed under said word.
+	- [`aspell`](https://github.com/priner/micro-aspell-plugin): spell checking. `addpersonal` adds word to personal dictionary when cursor is placed under said word.
 
 	- [`filemanager`](https://github.com/NicolaiSoeborg/filemanager-plugin): adds a tree to visualize, open, create files and directories:
 	    - `Ctrl + e` then `tree`: open the file tree
@@ -96,8 +97,8 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 		- `Ctrl + _`: comments out the line. Repeat to undo previous action
 		- `Ctrl + space`: limited auto complete; all possible keywords are listed yet not cleanly stated
 
-	- `autofmt`: formats file content at save based on language. Until the new
-	   [autofmt](https://github.com/a11ce/micro-autofmt) repo is updated with a `-plugin` command, do this instead:
+	- `autofmt`: formats file content at save based on language. Until the current
+	   [autofmt](https://github.com/a11ce/micro-autofmt) repository is updated with a `-plugin` command, do this instead:
 		1. `git clone git@github.com:a11ce/micro-autofmt.git`
 		2. `cd` to micro-autofmt/ then `make`. The cloned repository is no longer needed after installing the plugin files so it can be removed aftewards.
 		3. Currently only C/C++/C#, Python, Racket, JavaScript, Rust and Go are supported.
@@ -109,7 +110,7 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 		- `F12`: makes
 		- `F5`: makes in the background
 
-	- [`manipulator`](https://github.com/NicolaiSoeborg/manipulator-plugin): add commands inside Micro for alternative edition i.e. `Ctrl + e` followed by:
+	- [`manipulator`](https://github.com/NicolaiSoeborg/manipulator-plugin): add commands inside Micro for alternative edition, i.e. `Ctrl + e` followed by:
 		- `dquote` wraps selected text within double quotes
 		- `curly` wraps selected text within {}
 		- `camel` turns text into camelCase format  
@@ -123,18 +124,20 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 	- [`snippets`](https://github.com/micro-editor/updated-plugins/tree/master/micro-snippets-plugin): adds vim like snippets capabilities to Micro, i.e. right next `def`:
 		- `Alt + s`: inserts the snippet
 		- `Alt + w`: toggle between elements from the snippet
+		- `Alt + d`: removes snippet
+		- `Alt + a`: exists snippet edition mode
 
 
 3. Settings and key bindings:
 	after installing plugins edit, or create, the `settings.json` at `~/.config/micro`
-	with the following options:
+	with the following options (the lines preceded by __#__ are meant to be deleted):
     ```
     # settings.json
 	{
 	    "aspell.check": "on",
 	    "aspell.lang": "en",       # Native or any language
 	    "colorcolumn": 80,         # Rule
-	    "colorscheme": "darcula_py",  # Or any color scheme fitting the Python syntax file
+	    "colorscheme": "darcula",  # Or any color scheme fitting the Python syntax file
 	    "diffgutter": true,        # Visual cue for changes in current file
 	    "fmt-onsave": true,        # Format on save
 	    "hlsearch": true,          # Matched letters and background color
