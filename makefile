@@ -27,9 +27,9 @@ endif
 pycro: add
 	cp 	micro-set_bind/*.json $(micro_dir); cp colorschemes/*.micro $(micro_dir)/colorschemes; cp syntax/*.yaml $(micro_dir)/syntax
 add:
-	echo "===== Adding Pycro files at $(micro_dir) =====\nConfiguration files:"; ls $$PWD/micro-set_bind/*.json | grep -o '[a-z]*\.json'
-	echo "\n===== Colorscheme(s) at: $(micro_dir)/colorschemes ====="; mkdir -p $(micro_dir)/colorschemes; ls $$PWD/colorschemes | tail; \
-	echo "\n===== Syntax file(s) at: $(micro_dir)/syntax ====="; mkdir -p $(micro_dir)/syntax; ls $$PWD/syntax/ | tail;
+	echo "===== Adding Pycro files =====\nConfiguration files at: $(micro_dir)"; echo $$PWD/micro-set_bind/*.json | grep -o '[a-z]*\.json'
+	echo "\nColorscheme(s) at: $(micro_dir)/colorschemes"; mkdir -p $(micro_dir)/colorschemes; echo $$PWD/colorschemes/*.micro | grep -o '[a-z-]*\.micro'; \
+	echo "\nSyntax file(s) at: $(micro_dir)/syntax"; mkdir -p $(micro_dir)/syntax; echo $$PWD/syntax/*.yaml | grep -o '[a-z0-9]*\.yaml'
 
 python: lsp yapf
 	echo "\n===== $^ installed! ====="
