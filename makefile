@@ -4,6 +4,7 @@
 micro_dir := ~/.config/micro
 SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
 plugins := aspell filemanager lsp runit manipulator quoter cheat snippets
+colorschemes := darcula monokai catpuccin-mocha
 
 all: micro pycro python plugins plug-fix
 	echo "\n===== All Pycro files installed! =====\n\n'make clean' => removes cloned repository and its contents\n\
@@ -56,12 +57,16 @@ plug-fix:
 	mv manipulator.lua $(micro_dir)/plug/manipulator; \
 	sed -i 's#/micro-cheat/#/cheat/#g' $(micro_dir)/plug/cheat/main.lua;
 
-u-pycro: json
+u-pycro: json $(colorschemes)
 	echo "===== Removing Pycro files ====="; \
-	rm -f $(micro_dir)/colorschemes/*_py.micro $(micro_dir)/syntax/python3.yaml;
+	echo "Color schemes removed: $(colorschemes)"; \
+	rm -f $(micro_dir)/syntax/python3.yaml;
+
+$(colorschemes):
+	rm -f $(micro_dir)/colorschemes/$@
 
 json:
-	echo "===== NOTE: JSON files may contain additional user preferences ====="; \
+	echo "===== JSON files may contain additional user preferences ====="; \
 	rm -i $(micro_dir)/*.json;
 
 u-micro:
