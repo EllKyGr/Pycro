@@ -50,7 +50,8 @@ repository if the language is already supported and modify it as desired.
 
 #### Termux
 1. Install git then shasum with `pkg install perl`
-2. After cloning open the makefile and change(-)
+2. `git clone git@github.com:EllKyGr/Pycro.git`
+3. Open the makefile and change __(-)__
 	```
 	micro: checksum
 		- cd /usr/bin/; echo "\nInstalling Micro at => $$PWD\n"; \
@@ -58,8 +59,8 @@ repository if the language is already supported and modify it as desired.
 		- curl https://getmic.ro | sudo bash;
 		+ curl https://getmic.ro | bash;
 	```
-3. Then `make`. The same commands apply to remove Pycro files and Micro however to remove Micro
-with the __makefile__, the following line should be changed:
+4. Then `make`. The same commands apply to remove Pycro files and Micro however to remove Micro
+through `make u-micro`, the following line should be changed:
 	```
 	u-micro:
 		- cd /usr/bin; echo "Attempting to remove Micro from $$PWD"; sudo rm -i micro; \
