@@ -1,5 +1,5 @@
-.SILENT: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt python lsp yapf plug-fix
-.PHONY: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt python lsp yapf plug-fix
+.SILENT: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt python lsp yapf plug-fix darcula monokai catpuccin-mocha
+.PHONY: all micro checksum pycro u-pycro u-micro add clean plugins auto-fmt python lsp yapf plug-fix darcula monokai catpuccin-mocha
 
 micro_dir := ~/.config/micro
 SHA := $(shell curl -s https://getmic.ro | shasum -a 256 | cut -d' ' -f 1)
