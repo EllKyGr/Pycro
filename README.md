@@ -40,7 +40,9 @@ repository if the language is already supported and modify it as desired.
 1. Create a new Python environment and activate it. (optional but recommended)__*__
 2. `git clone git@github.com:EllKyGr/Pycro.git` then `make`
 
-	- `make u-pycro` removes all Pycro related files, i.e. all color schemes with __py.micro__ and the __python3.yaml__
+	- `make u-pycro` removes all Pycro related files, i.e. all color schemes within this repository and the __python3.yaml__. __NOTE:__ although several color schemes are extended versions
+		of default ones, you can still use them through `set` command or added directly to the `settings.json` after deleting the extended version. If a Micro session is open during removal
+		process, exit once deleted, then `reload` to use default version, assuming the current colorscheme matches the same file name.
 	- `make u-micro` removes all Pycro and Micro related files from your system. __NOTE:__ if your Micro bin is located anywhere but __/usr/bin__
 		this command won't be able to delete it.
 	- After the setup is complete you can run `make clean` to remove this repository since its content will no longer be necessary. The __makefile__ would be relocated to the parent directory
@@ -152,8 +154,8 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 	    "lsp.server": "python=pylsp",
 
 	}
-	```
 	Enter `Ctrl + e` inside Micro and then `set` followed by any additional option you may want in addition to the recommended ones.
+	```
 
 	Check the Micro [options](https://github.com/zyedidia/micro/blob/master/runtime/help/options.md) tab for further information
 
