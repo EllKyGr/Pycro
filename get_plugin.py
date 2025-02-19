@@ -115,6 +115,37 @@ def request_zip(url: str) -> None:
     return None
 
 
+def grab_latest_version(
+        json_data: list[dict[str, str | list]]) -> tuple[str, str]:
+    """
+     In case more than one version exists in the JSON file and the order of them
+     is not consistent, i.e. the latest version instead of being at the top it
+     is at the bottom.
+     :param json_data: all the metadata from the plugin
+     :return: the latest version url zip
+     """
+    zip_url: str
+    version: str
+    versions: dict = json_data[0]['Versions']
+    total_ver: int = len(versions)
+    if total_ver > 1:
+        last_registered_version: tuple = tuple(versions[total_ver - 1].items())
+        oldest_registered_version: tuple = tuple(versions[0].items())
+
+        if last_registered_version[0] > oldest_registered_version[0]:
+            zip_url = last_registered_version[1][1]
+            version = last_registered_version[0][1]
+        else:
+            zip_url = oldest_registered_version[1][1]
+            version = oldest_registered_version[0][1]
+    else:
+        plugin_data: tuple = tuple(versions[0].items())
+        zip_url = plugin_data[1][1]
+        version = plugin_data[0][1]
+
+    return zip_url, version
+
+
 def request_plugin(plugin_url: Generator[str]) -> None:
     """
     Access to the JSON file for each plugin if previously found. Retrieve the
@@ -125,13 +156,11 @@ def request_plugin(plugin_url: Generator[str]) -> None:
     for plugin in plugin_url:
         response = get(plugin)
         if response.status_code == 200:
-            plugin_data: dict[str, str | list] = response.json()
-            for info in plugin_data:
-                plugin_name: str = info["Name"]
-                version: str = info["Versions"][0]["Version"]
-                url_zip: str = info["Versions"][0]["Url"]
+            plugin_data: list[dict] = response.json()
+            name: str = plugin_data[0]['Name']
+            url_zip, version = grab_latest_version(plugin_data)
             print(
-                f"Success! {plugin_name}-{version} version. Available at:\n\t{url_zip}"
+                f"Success! {name}-{version} version. Available at:\n\t{url_zip}"
             )
             try:
                 request_zip(url_zip)
