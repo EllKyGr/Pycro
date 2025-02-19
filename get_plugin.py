@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Use the raw plugin channel JSON to locate the plugin and require it accordingly
 import json, re
 from pathlib import Path
