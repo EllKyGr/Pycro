@@ -1,9 +1,11 @@
+#!/usr/bin/env python
 # Use the raw plugin channel JSON to locate the plugin and require it accordingly
-from typing import Generator
+import json, re
+from pathlib import Path
 from requests import get
+from typing import Generator
 from requests.exceptions import HTTPError
 from argparse import ArgumentParser, Namespace
-import json, re
 
 MC_URL: str = "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
 PYCRO_PLUGINS: list[str] = [
@@ -24,6 +26,7 @@ parser: ArgumentParser = ArgumentParser(
     epilog="Refer to `https://github.com/micro-editor/plugin-channel` or"
     " `https://micro-editor.github.io/plugins.html` to prevent"
     " typos during retrieval, i.e. aspel instead of aspell")
+
 parser.add_argument(
     "-pl",
     "--plugin",
@@ -31,7 +34,16 @@ parser.add_argument(
     help="User required plugin(s) for Micro. At least one must be entered",
 )
 
-entered_plugins: Namespace = parser.parse_args()
+parser.add_argument(
+    "-dir",
+    "--directory",
+    action="store_true",
+    help=
+    "If flag given, downloads the required plugins at ~/.config/micro/plug over"
+    " current script location. No additional arguments required.",
+)
+
+args: Namespace = parser.parse_args()
 
 
 def micro_main_channel_plugin(url: str) -> list[str]:
@@ -89,6 +101,22 @@ def verify_plugin(
     print()
 
 
+def save_at_plug_dir(zip_file: str) -> str:
+    """
+    If the argument `-dir` is given saves the required zip files directly at
+    `~/.config/micro/plug`
+    :zip_file: string representation of the zip file.
+    :return: absolute path including the zip file for saving.
+    """
+    script_location = Path(__file__).absolute().parent
+    relative_plug_dir = (".config/micro/plug/" + zip_file).split("/")
+    absolute_plug_path = str(script_location).split(
+        "/")[:3] + relative_plug_dir
+
+    plugin_location: str = '/'.join(absolute_plug_path)
+    return plugin_location
+
+
 def request_zip(url: str) -> None:
     """
 	Request the zip from the plugin JSON file
@@ -102,7 +130,8 @@ def request_zip(url: str) -> None:
             filename: str = content_disposition.split("filename=")[1]
         else:
             filename = url.split("/")[-1]
-
+        if args.directory:
+            filename = save_at_plug_dir(filename)
         with open(filename, mode="wb") as file:
             print(f"Downloading {filename}...")
             for chunk in response.iter_content(chunk_size=10 * 1024):
@@ -179,9 +208,9 @@ def main() -> None:
         print(err)
 
     required_plugins: Generator[str]
-    if entered_plugins.plugin:
-        print("Argument detected plugins:", *entered_plugins.plugin)
-        required_plugins = verify_plugin(all_plugins, entered_plugins)
+    if args.plugin:
+        print("Argument detected plugins:", *args.plugin)
+        required_plugins = verify_plugin(all_plugins, args)
     else:
         print("Requiring Pycro recommend plugins...")
         required_plugins = verify_plugin(all_plugins)
