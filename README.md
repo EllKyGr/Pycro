@@ -66,10 +66,11 @@ through `make u-micro`, the following line should be changed:
 		- cd /usr/bin; echo "Attempting to remove Micro from $$PWD"; sudo rm -i micro; \
 		+ cd /data/data/com.termux/files/usr/bin; echo "Attempting to remove Micro from $$PWD"; rm -i micro; \
 	```
-5. Optional: It is possible, during makefile execution, the target `plugins` may issue the error *Failed to query plugin channel*. If that is your case you can either try run it later on,
-download individually each plugin or run `python get_plugin.py`; the script will download by default the plugins recommend in here. Be sure to previously install __requests__ before running the
-script (`pip install requests`). After download move the files to `~/.config/micro/plug` and extract them in there. You can run `python get_plugin.py -pl <plug_1> <plug_2> <plug_n>` if needed
-to get different or additional plugins instead.
+5. Optional: It is possible, during makefile execution, the target `plugins` may issue the error *Failed to query plugin channel*. If that is your case you can either try run it later,
+download individually each plugin or run `python get_plugin.py` (or `./get_plugin.py`); the script will download by default the plugins recommend in here. Be sure to previously install
+__requests__ before running the script (`pip install requests`). You can run `python get_plugin.py -pl <plug_1> <plug_2> <plug_n>` or `./get_plugin.py -pl <plug_n>` if different or additional
+plugins are needed instead. By default the zip files are downloaded in the current script location; move said files to `~/.config/micro/plug` and extract them in there. Alternatively the
+flag `-dir` downloads directly the plugin zip file inside Micro's plug directory: `./get_plugin.py -pl <plug_n> -dir`.
 
 #### Micro already installed?
 1. Although not necessary for the present settings, be aware of the __micro__ bin file location. (The __makefile__ can only remove Micro entirely if located at */usr/bin*)
