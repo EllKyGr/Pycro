@@ -49,8 +49,8 @@ args: Namespace = parser.parse_args()
 def micro_main_channel_plugin(url: str) -> list[str]:
     """
     Returns the main channel JSON file as a list with all available plugins.
-    Since the file contains commentaries, this are removed beforehand for proper
-    parsing
+    Since the file contains commentaries, these are removed beforehand for
+    proper parsing
     :param url: Micro's main channel Url
     :return: JSON object with all url plugins
     """
@@ -106,7 +106,7 @@ def save_at_plug_dir(zip_file: str) -> str:
     If the argument `-dir` is given saves the required zip files directly at
     `~/.config/micro/plug`
     :zip_file: string representation of the zip file.
-    :return: absolute path including the zip file for saving.
+    :return: absolute path including zip file for saving.
     """
     script_location = Path(__file__).absolute().parent
     relative_plug_dir = (".config/micro/plug/" + zip_file).split("/")
@@ -119,10 +119,10 @@ def save_at_plug_dir(zip_file: str) -> str:
 
 def request_zip(url: str) -> None:
     """
-	Request the zip from the plugin JSON file
-	:param url: JSON file url from each plugin
-	:return: None
-	"""
+    Request the zip from the plugin JSON file
+    :param url: JSON file url from each plugin
+    :return: None
+    """
     response = get(url, stream=True)
     if response.status_code == 200:
         if "content-disposition" in response.headers:
@@ -133,15 +133,13 @@ def request_zip(url: str) -> None:
         if args.directory:
             filename = save_at_plug_dir(filename)
         with open(filename, mode="wb") as file:
-            print(f"Downloading {filename}...")
+            print(f"Downloading {filename.split('/')[-1]}...")
             for chunk in response.iter_content(chunk_size=10 * 1024):
                 print(". ", end=' ', flush=True)
                 file.write(chunk)
         print()
     else:
         raise HTTPError(f"Unable to reach zip file: {response.status_code}")
-
-    return None
 
 
 def grab_latest_version(
@@ -151,22 +149,22 @@ def grab_latest_version(
      is not consistent, i.e. the latest version instead of being at the top it
      is at the bottom.
      :param json_data: all the metadata from the plugin
-     :return: the latest version url zip
+     :return: the latest url zip version
      """
     zip_url: str
     version: str
     versions: dict = json_data[0]['Versions']
     total_ver: int = len(versions)
     if total_ver > 1:
-        last_registered_version: tuple = tuple(versions[total_ver - 1].items())
-        oldest_registered_version: tuple = tuple(versions[0].items())
+        last_entered_version: tuple = tuple(versions[total_ver - 1].items())
+        first_position_version: tuple = tuple(versions[0].items())
 
-        if last_registered_version[0] > oldest_registered_version[0]:
-            zip_url = last_registered_version[1][1]
-            version = last_registered_version[0][1]
+        if last_entered_version[0] > first_position_version[0]:
+            zip_url = last_entered_version[1][1]
+            version = last_entered_version[0][1]
         else:
-            zip_url = oldest_registered_version[1][1]
-            version = oldest_registered_version[0][1]
+            zip_url = first_position_version[1][1]
+            version = first_position_version[0][1]
     else:
         plugin_data: tuple = tuple(versions[0].items())
         zip_url = plugin_data[1][1]
@@ -209,7 +207,7 @@ def main() -> None:
 
     required_plugins: Generator[str]
     if args.plugin:
-        print("Argument detected plugins:", *args.plugin)
+        print("Argument detected with user plugins:", *args.plugin)
         required_plugins = verify_plugin(all_plugins, args)
     else:
         print("Requiring Pycro recommend plugins...")
