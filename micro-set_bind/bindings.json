@@ -1,7 +1,8 @@
 {
     "Alt-/": "lua:comment.comment",
     "Alt-a": "lua:snippets.Accept",
-    "Alt-d": "lua:snippets.Cancel",
+    "Alt-c": "lua:snippets.Cancel",
+    "Alt-d": "command:definition",
     "Alt-f": "command:format",
     "Alt-k": "command:hover",
     "Alt-r": "command:references",
