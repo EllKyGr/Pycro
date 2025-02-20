@@ -175,7 +175,8 @@ are missing. Meaning to use Micro's full capacity (while developing Python) thes
 	{
         "Alt-/": "lua:comment.comment",
         "Alt-a": "lua:snippets.Accept",
-        "Alt-d": "lua:snippets.Cancel",
+        "Alt-c": "lua:snippets.Cancel",
+        "Alt-d": "command:definition",
         "Alt-f": "command:format",
         "Alt-k": "command:hover",
         "Alt-r": "command:references",
@@ -190,7 +191,7 @@ are missing. Meaning to use Micro's full capacity (while developing Python) thes
 	}
 	```
 
-	Check the Micro [keybindings](https://github.com/zyedidia/micro/blob/master/runtime/help/keybindings.md) tab for further information
+	Any keybindings present here can me modified to suit your needs. Check the Micro [keybindings](https://github.com/zyedidia/micro/blob/master/runtime/help/keybindings.md) tab for further information.
 
 ## What's next?
 
