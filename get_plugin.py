@@ -108,12 +108,18 @@ def save_at_plug_dir(zip_file: str) -> str:
     :zip_file: string representation of the zip file.
     :return: absolute path including zip file for saving.
     """
-    script_location = Path(__file__).absolute().parent
-    relative_plug_dir = (".config/micro/plug/" + zip_file).split("/")
-    absolute_plug_path = str(script_location).split(
-        "/")[:3] + relative_plug_dir
+    script_location: Path = Path(__file__).absolute().parent
+    parent_path: list[str] = str(script_location).split("/")
+    relative_plug_dir: list[str] = (".config/micro/plug/" +
+                                    zip_file).split("/")
 
+    home_position: int = parent_path.index("home")
+    if parent_path[home_position - 1] != "files":  # Not a Termux path
+        home_position += 1
+
+    absolute_plug_path = parent_path[:home_position + 1] + relative_plug_dir
     plugin_location: str = '/'.join(absolute_plug_path)
+
     return plugin_location
 
 
