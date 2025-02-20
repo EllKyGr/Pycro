@@ -77,8 +77,8 @@ flag `-dir` downloads directly the plugin zip file inside Micro's plug directory
 2. Create a new Python environment and activate it. (optional but recommended)__*__
 3. `git clone git@github.com:EllKyGr/Pycro.git` then `make pycro`
 
-__*__ The main reason for using a Python environment is just for containment sake. On the other hand the plugins related to this packages will not work as intended if the latter are missing.
-Meaning to use Micro's full capacity (while developing Python) these two packages should be present.
+__*__ The main reason for using a Python environment is just for containment sake. On the other hand the plugins related to these packages (LSP and yapf) will not work as intended if the latter
+are missing. Meaning to use Micro's full capacity (while developing Python) these two packages should be present.
 
 ### Step by Step
 1. Installing Micro:
@@ -124,11 +124,16 @@ Meaning to use Micro's full capacity (while developing Python) these two package
 		- `camel` turns text into camelCase format  
 
 
-      __NOTE:__ Refer to the main page of the repository, or the *manipulator.md* after installed, to learn all the available commands. The plugin installs version __1.4.0__, version __1.4.1__ is needed for `camel, snake, kebab`, etc to work otherwise Micro won't recognize them.
+      __NOTE:__ Refer to the main page of the repository, or the *manipulator.md* after installed, to learn all the available commands. The plugin installs version __1.4.0__, version __1.4.1__
+                is needed for `camel, snake, kebab`, etc. to work otherwise Micro won't recognize them. `get_plugin.py` cannot reach the latest version because the Micro's main channel is outdated,
+                however the present __makefile__ is capable of retrieving the latest `manipulator.lua` with `make plug-fix` be aware the default save directory may vary according to the installation
+                method; as instructed in the __makefile__, the plugin installed with `-plugin` command creates *manipulator* directory plainly, whereas through `get_plugin.py`, or direct download, besides
+                *manipulator* the name contains the downloaded version, i.e. *manipulator-plugin* or *manipulator-X.X.X*, if that is the case `manipulator.lua` file will be saved at ~/.config/micro/plug
 	- [`quoter`](https://github.com/sparques/micro-quoter): wraps the lines with double or single quotes.
 	- [`cheat`](https://github.com/terokarvinen/micro-cheat): pressing `F1` opens a new tab with a cheatsheet of concepts from the current working language. Although mostly basic concepts of the language, the file can be modify and expand upon as needed.  
  	 __NOTE:__ the path stated in *main.lua* at line 11 __=>__ *local cheatdir = config.ConfigDir.."/plug/micro-cheat/cheatsheets/"*
-	           conflicts with the actual path installed for the plugin, instead of __micro-cheat__ change it to __cheat__
+	           conflicts with the actual path installed for the plugin, instead of __micro-cheat__ change it to __cheat__. If the plugin was downloaded through Micro's plugin channel, __micro-cheat__ should
+	           be changed to __micro-cheat-0.0.X__ the *X* representing the downloaded version.
 	- [`snippets`](https://github.com/micro-editor/updated-plugins/tree/master/micro-snippets-plugin): adds vim like snippets capabilities to Micro, i.e. right next `def`:
 		- `Alt + s`: inserts the snippet
 		- `Alt + w`: toggle between elements from the snippet
