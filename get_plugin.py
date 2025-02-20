@@ -71,8 +71,9 @@ def micro_main_channel_plugin(url: str) -> list[str]:
 
 
 def verify_plugin(
-        channel_plugins: list[str],
-        plarg: Namespace | list[str] = PYCRO_PLUGINS) -> Generator[str]:
+    channel_plugins: list[str],
+    plarg: Namespace | list[str] = PYCRO_PLUGINS
+) -> Generator[str, None, None]:
     """
     Loop through the main channel list in order to select the desired ones, then
     yield the respective JSON file url
@@ -179,7 +180,7 @@ def grab_latest_version(
     return zip_url, version
 
 
-def request_plugin(plugin_url: Generator[str]) -> None:
+def request_plugin(plugin_url: Generator[str, None, None]) -> None:
     """
     Access to the JSON file for each plugin if previously found. Retrieve the
     name, latest version and zip file link.
@@ -211,7 +212,7 @@ def main() -> None:
     except HTTPError as err:
         print(err)
 
-    required_plugins: Generator[str]
+    required_plugins: Generator[str, None, None]
     if args.plugin:
         print("Argument detected with user plugins:", *args.plugin)
         required_plugins = verify_plugin(all_plugins, args)
