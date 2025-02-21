@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Use the raw plugin channel JSON to locate the plugin and require it accordingly
 import json, re
-from pathlib import Path
+from subprocess import run, CompletedProcess
 from requests import get
 from typing import Generator
 from requests.exceptions import HTTPError
@@ -109,19 +109,16 @@ def save_at_plug_dir(zip_file: str) -> str:
     :zip_file: string representation of the zip file.
     :return: absolute path including zip file for saving.
     """
-    script_location: Path = Path(__file__).absolute().parent
-    parent_path: list[str] = str(script_location).split("/")
-    relative_plug_dir: list[str] = (".config/micro/plug/" +
-                                    zip_file).split("/")
+    relative_plug_path: str = "/.config/micro/plug/" + zip_file
+    home_command: CompletedProcess = run("echo $HOME",
+                                         text=True,
+                                         capture_output=True,
+                                         shell=True)
 
-    home_position: int = parent_path.index("home")
-    if parent_path[home_position - 1] != "files":  # Not a Termux path
-        home_position += 1
+    home_path: str = home_command.stdout.rstrip("\n")
+    absolute_path: str = home_path + relative_plug_path
 
-    absolute_plug_path = parent_path[:home_position + 1] + relative_plug_dir
-    plugin_location: str = '/'.join(absolute_plug_path)
-
-    return plugin_location
+    return absolute_path
 
 
 def request_zip(url: str) -> None:
