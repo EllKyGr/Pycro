@@ -82,29 +82,26 @@ def verify_plugin(
         an argument
     :return: one time use plugin url
     """
+    required_plugins: Namespace | list[str]
     if isinstance(plarg, Namespace):
-        for plugin in plarg.plugin:
-            for plugin_link in channel_plugins:
-                if plugin in plugin_link:
-                    print(
-                        f"\n'{plugin}' found in main channel, requesting file..."
-                    )
-                    yield plugin_link
+        required_plugins = plarg.plugin
     else:
-        for plugin in plarg:
-            for plugin_link in channel_plugins:
-                if plugin in plugin_link:
-                    print(
-                        f"\n'{plugin}' found in main channel, requesting file..."
-                    )
-                    yield plugin_link
+        required_plugins = plarg
+
+    for plugin in required_plugins:
+        for plugin_link in channel_plugins:
+            if plugin in plugin_link:
+                print(
+                    f"\n'{plugin}' found in main channel, requesting file...")
+
+                yield plugin_link
 
     print()
 
 
 def save_at_plug_dir(zip_file: str) -> str:
     """
-    If the argument `-dir` is given saves the required zip files directly at
+    If flag `-dir` is given saves the required zip files directly at
     `~/.config/micro/plug`
     :zip_file: string representation of the zip file.
     :return: absolute path including zip file for saving.
